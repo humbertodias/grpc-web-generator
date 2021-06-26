@@ -1,8 +1,9 @@
-FROM ubuntu:20.04 AS builder
+FROM ubuntu:21.04 AS builder
 
 ARG MAKEFLAGS=-j8
+ARG GRPC_WEB_TAG=tags/1.2.1
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
   automake \
   build-essential \
   git \
@@ -13,7 +14,7 @@ RUN git clone https://github.com/grpc/grpc-web /github/grpc-web
 
 WORKDIR /github/grpc-web
 
-RUN git checkout tags/1.2.1
+RUN git checkout ${GRPC_WEB_TAG}
 
 ## Install gRPC and protobuf
 
@@ -27,7 +28,7 @@ RUN cd third_party/grpc/third_party/protobuf && make install
 
 RUN make install-plugin
 
-FROM ubuntu:20.04
+FROM ubuntu:21.04
 
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /usr/local/include /usr/local/include
@@ -39,6 +40,8 @@ ENV mode=grpcwebtext
 VOLUME /protofile
 ENV protofile=echo.proto
 ENV output=/protofile/generated
+
+USER ubuntu
 
 CMD protoc \
   -I=/protofile \

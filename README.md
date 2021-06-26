@@ -69,16 +69,16 @@ Defaults to `grpcwebtext`.
 
 ### From DockerHub
 
-The image is available at [Docker Hub](https://hub.docker.com/r/juanjodiaz/grpc-web-generator/)
+The image is available at [Docker Hub](https://hub.docker.com/r/hldtux/grpc-web-generator/)
 
 ```sh
-docker pull juanjodiaz/grpc-web-generator
+docker pull hldtux/grpc-web-generator
 ```
 
 ### Build from source
 
 ```bash
-docker build <path_to_this_repository> -t juanjodiaz/grpc-web-generator
+docker build <path_to_this_repository> -t hldtux/grpc-web-generator
 ```
 
 ## Generating the files
@@ -87,7 +87,7 @@ docker build <path_to_this_repository> -t juanjodiaz/grpc-web-generator
   docker run \
     -v "<MY_INCLUDES_FOLDER>:/protofile" \
     -e "protofile=<MY_PROTO_FILE>.proto" \
-    juanjodiaz/grpc-web-generator
+    hldtux/grpc-web-generator
 ```
 
 ## Integrating it in your npm build
@@ -100,7 +100,7 @@ You can add a script to your NPM file like:
   ...
 
   "scripts": {
-    "grpc.generate": "docker run -v \"<MY_INCLUDES_FOLDER>:/protofile\" -e \"protofile=<MY_PROTO_FILE>.proto\" juanjodiaz/grpc-web-generator:1.2.1"
+    "grpc.generate": "docker run -v \"<MY_INCLUDES_FOLDER>:/protofile\" -e \"protofile=<MY_PROTO_FILE>.proto\" hldtux/grpc-web-generator:1.2.1"
   },
 
   ...
